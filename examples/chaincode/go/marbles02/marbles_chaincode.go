@@ -38,13 +38,7 @@ func main() {
 
 // Init initializes chaincode
 // ===========================
-func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface,  args []string) pb.Response {
-
-	function, args := stub.GetFunctionAndParameters()
-	err := stub.PutState("hello_world", []byte(args[0]))
-	if err != nil {
-		return nil, err
-	}
+func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
 
