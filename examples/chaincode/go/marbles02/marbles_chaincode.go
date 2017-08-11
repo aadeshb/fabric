@@ -39,7 +39,19 @@ func main() {
 // Init initializes chaincode
 // ===========================
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	return shim.Success(nil)
+
+	if len(args) != 1 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+	}
+	//We are writing some key under the name "hello_world" to the ledger, the hello world is simply a key to hold whatever
+	//argument we pass, if we query "hello_world" with the query function, then it would return whatever argument is placed in args[0]
+	err := stub.PutState("hello_world", []byte(args[0]))
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
+
 }
 
 
